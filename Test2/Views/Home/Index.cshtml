@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<h2>Index</h2>
+
+<div>
+    <button id="btnContent">Show Content</button>
+    <button id="btnFile">Show File</button>
+    <button id="btnEmpty">Show Empty</button>
+    <button id="btnJS">Show JavaScript</button>
+    <button id="btnJson">Show JSON</button>
+</div>
+
+<hr />
+
+<div id="resultArea" style="margin-top:20px; padding:10px; border:1px solid #ccc;"> </div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#btnContent').click(function () {
+                $.get('/Home/ShowContent', function (data) {
+                    $('#resultArea').text(data);
+                });
+            });
+
+            $('#btnFile').click(function () {
+                $.get('/Home/ShowFile', function (data) {
+                    $('#resultArea').text(data);
+                });
+            });
+
+            $('#btnEmpty').click(function () {
+                $.get('/Home/ShowEmpty', function (data) {
+                    $('#resultArea').text(data);
+                });
+            });
+
+            $('#btnJS').click(function () {
+                $.get('/Home/ShowJS', function (data) {
+                    eval(data); // Executes the JavaScript returned
+                    $('#resultArea').text('[JavaScript executed]');
+                });
+            });
+
+            $('#btnJson').click(function () {
+                $.get('/Home/ShowJson', function (data) {
+                    $('#resultArea').text(JSON.stringify(data, null, 2));
+                });
+            });
+        });
+    </script>
+}
+
